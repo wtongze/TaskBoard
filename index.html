@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono|Material+Icons&display=swap" rel="stylesheet">
+
+  <title>TaskBoard</title>
+
+  <style>
+    body {
+      font-family: 'Ubuntu Mono', monospace;
+    }
+
+    .taskboard-round-border {
+      border-radius: 0.5rem;
+    }
+
+    .taskboard-nav {
+      background-color: whitesmoke;
+    }
+
+    .taskboard-col {
+      background-color: #F3F5F7;
+      height: 80vh;
+    }
+
+    .task-item {
+      border-left-color: coral;
+      border-left-style: solid;
+      border-left-width: 0.5rem;
+    }
+
+    .fab-btn {
+      position: absolute;
+      right: 50px;
+      bottom: 50px;
+      z-index: 2;
+      height: 50px;
+      width: 50px;
+      border-radius: 100%;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!--  NavBar  -->
+  <nav class="navbar navbar-light taskboard-nav taskboard-round-border mt-3">
+    <a class="navbar-brand" href="#">TaskBoard</a>
+    <form class="form-inline">
+      <button class="btn btn-raised btn-primary" onclick="firebase.auth().signOut()" type="button">Log out</button>
+    </form>
+  </nav>
+
+  <!--  FAB  -->
+  <div>
+    <button type="button" class="btn btn-primary fab-btn" data-toggle="modal" data-target="#exampleModalCenter">
+      <i class="material-icons align-middle">
+        add
+      </i>
+    </button>
+  </div>
+
+  <!--  Add Task Modal  -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  TaskLists  -->
+  <div class="row mt-3">
+    <div class="col-3">
+      <h4>Planned</h4>
+      <div class="taskboard-col p-2 taskboard-round-border">
+        <div class="card taskboard-round-border task-item">
+          <div class="card-body ">
+            <h5 class="card-title">Add Firebase Support</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+              the card's content.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <h4>Doing</h4>
+      <div class="taskboard-col p-2 taskboard-round-border">
+        test
+      </div>
+    </div>
+    <div class="col-3">
+      <h4>Testing</h4>
+      <div class="taskboard-col p-2 taskboard-round-border">
+        test
+      </div>
+    </div>
+    <div class="col-3">
+      <h4>Finished</h4>
+      <div class="taskboard-col p-2 taskboard-round-border">
+        test
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+<!-- Firebase SDK-->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+
+<!-- Initialize Firebase -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCSygn4ZHm-olPJNx4ms-Q0kpopy-duM7g",
+    authDomain: "taskboard-52a2d.firebaseapp.com",
+    databaseURL: "https://taskboard-52a2d.firebaseio.com",
+    projectId: "taskboard-52a2d",
+    storageBucket: "taskboard-52a2d.appspot.com",
+    messagingSenderId: "72749793872",
+    appId: "1:72749793872:web:1d1d0518f73cd9e33d0755",
+    measurementId: "G-5CDN76CYJZ"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script>
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in.
+      console.log(firebase.auth().currentUser.email);
+    } else {
+      // No user is signed in.
+      window.location.assign('http://localhost:5000/login.html');
+    }
+  });
+</script>
+
+</body>
+</html>
