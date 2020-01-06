@@ -1,128 +1,163 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono|Material+Icons&display=swap" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono|Material+Icons&display=swap" rel="stylesheet">
 
-  <title>TaskBoard</title>
+    <title>TaskBoard</title>
 
-  <style>
-    body {
-      font-family: 'Ubuntu Mono', monospace;
-    }
+    <style>
+        body {
+            /*font-family: 'Ubuntu Mono', monospace;*/
+        }
 
-    .taskboard-round-border {
-      border-radius: 0.5rem;
-    }
+        .taskboard-round-border {
+            border-radius: 0.5rem;
+        }
 
-    .taskboard-nav {
-      background-color: whitesmoke;
-    }
+        .taskboard-nav {
+            /*background-color: whitesmoke;*/
+            box-shadow: 5px 5px 5px whitesmoke;
+            border: 1px solid gainsboro;
+        }
 
-    .taskboard-col {
-      background-color: #F3F5F7;
-      height: 80vh;
-    }
+        .taskboard-col {
+            background-color: #F3F5F7;
+            height: calc(100vh - 106px);
+        }
 
-    .task-item {
-      border-left-color: coral;
-      border-left-style: solid;
-      border-left-width: 0.5rem;
-    }
+        .task-item {
+            border-left-color: coral;
+            border-left-style: solid;
+            border-left-width: 0.5rem;
+        }
 
-    .fab-btn {
-      position: absolute;
-      right: 50px;
-      bottom: 50px;
-      z-index: 2;
-      height: 50px;
-      width: 50px;
-      border-radius: 100%;
-    }
-  </style>
+        .fab-btn {
+            position: absolute;
+            right: 50px;
+            bottom: 50px;
+            z-index: 2;
+            height: 50px;
+            width: 50px;
+            border-radius: 100%;
+        }
+
+        .card-icons {
+            font-size: 1rem;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-  <!--  NavBar  -->
-  <nav class="navbar navbar-light taskboard-nav taskboard-round-border mt-3">
-    <a class="navbar-brand" href="#">TaskBoard</a>
-    <form class="form-inline">
-      <button class="btn btn-raised btn-primary" onclick="firebase.auth().signOut()" type="button">Log out</button>
-    </form>
-  </nav>
+<div class="container-fluid">
+    <!--  NavBar  -->
+    <nav class="navbar navbar-light taskboard-nav taskboard-round-border mt-3">
+        <a class="navbar-brand" href="#">TaskBoard</a>
+        <form class="form-inline">
+            <button class="btn btn-raised btn-primary" onclick="firebase.auth().signOut()" type="button">Log out
+            </button>
+        </form>
+    </nav>
 
-  <!--  FAB  -->
-  <div>
-    <button type="button" class="btn btn-primary fab-btn" data-toggle="modal" data-target="#exampleModalCenter">
-      <i class="material-icons align-middle">
-        add
-      </i>
-    </button>
-  </div>
+    <!--  FAB  -->
+    <div>
+        <button type="button" class="btn btn-primary fab-btn" data-toggle="modal" data-target="#addTaskModal">
+            <i class="material-icons align-middle">
+                add
+            </i>
+        </button>
+    </div>
 
-  <!--  Add Task Modal  -->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    <!--  Add Task Modal  -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Add New Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="taskTitle">Title</label>
+                            <input type="text" class="form-control" id="taskTitle">
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDueDate">Due Date</label>
+                            <input type="text" class="form-control" id="taskDueDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="taskTags">Tags</label>
+                            <input type="text" class="form-control" id="taskTags">
+                        </div>
+                        <div class="form-group">
+                            <label for="taskColor">Color</label>
+                            <input type="text" class="form-control" id="taskColor">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addNewTask()">Save
+                        changes
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <!--  TaskLists  -->
-  <div class="row mt-3">
-    <div class="col-3">
-      <h4>Planned</h4>
-      <div class="taskboard-col p-2 taskboard-round-border">
-        <div class="card taskboard-round-border task-item">
-          <div class="card-body ">
-            <h5 class="card-title">Add Firebase Support</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-              the card's content.</p>
-          </div>
+    <!--  TaskLists  -->
+    <div class="row mt-3">
+        <div class="col-3">
+            <div class="taskboard-col p-2 taskboard-round-border">
+                <h5>
+                    Planned
+                    <span class="badge badge-secondary float-right">0</span>
+                </h5>
+                <div class="taskcard-list" id="planned-list">
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="col-3">
+            <div class="taskboard-col p-2 taskboard-round-border">
+                <h5>
+                    Doing
+                    <span class="badge badge-secondary float-right">0</span>
+                </h5>
+                <div class="taskcard-list" id="doing-list">
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="taskboard-col p-2 taskboard-round-border">
+                <h5>
+                    Testing
+                    <span class="badge badge-secondary float-right">0</span>
+                </h5>
+                <div class="taskcard-list" id="testing-list">
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="taskboard-col p-2 taskboard-round-border">
+                <h5>
+                    Finished
+                    <span class="badge badge-secondary float-right">0</span>
+                </h5>
+                <div class="taskcard-list" id="finished-list">
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-3">
-      <h4>Doing</h4>
-      <div class="taskboard-col p-2 taskboard-round-border">
-        test
-      </div>
-    </div>
-    <div class="col-3">
-      <h4>Testing</h4>
-      <div class="taskboard-col p-2 taskboard-round-border">
-        test
-      </div>
-    </div>
-    <div class="col-3">
-      <h4>Finished</h4>
-      <div class="taskboard-col p-2 taskboard-round-border">
-        test
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- Optional JavaScript -->
@@ -136,6 +171,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://mozilla.github.io/nunjucks/files/nunjucks.js"></script>
 
 <!-- Firebase SDK-->
 <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -149,29 +186,145 @@
 
 <!-- Initialize Firebase -->
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCSygn4ZHm-olPJNx4ms-Q0kpopy-duM7g",
-    authDomain: "taskboard-52a2d.firebaseapp.com",
-    databaseURL: "https://taskboard-52a2d.firebaseio.com",
-    projectId: "taskboard-52a2d",
-    storageBucket: "taskboard-52a2d.appspot.com",
-    messagingSenderId: "72749793872",
-    appId: "1:72749793872:web:1d1d0518f73cd9e33d0755",
-    measurementId: "G-5CDN76CYJZ"
-  };
+    const firebaseConfig = {
+        apiKey: "AIzaSyCSygn4ZHm-olPJNx4ms-Q0kpopy-duM7g",
+        authDomain: "taskboard-52a2d.firebaseapp.com",
+        databaseURL: "https://taskboard-52a2d.firebaseio.com",
+        projectId: "taskboard-52a2d",
+        storageBucket: "taskboard-52a2d.appspot.com",
+        messagingSenderId: "72749793872",
+        appId: "1:72749793872:web:1d1d0518f73cd9e33d0755",
+        measurementId: "G-5CDN76CYJZ"
+    };
 
-  firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
+    let db = firebase.firestore();
 </script>
 <script>
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      // User is signed in.
-      console.log(firebase.auth().currentUser.email);
-    } else {
-      // No user is signed in.
-      window.location.assign('http://localhost:5000/login.html');
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            // User is signed in.
+            console.log(firebase.auth().currentUser.email);
+            loadTasks();
+        } else {
+            // No user is signed in.
+            window.location.assign('https://tb.wtongze.com/login.html');
+        }
+    });
+
+    function addNewTask() {
+        let taskName = marked(document.getElementById('taskTitle').value);
+        let taskDueDate = document.getElementById('taskDueDate').value;
+        let taskTags = document.getElementById('taskTags').value;
+        let taskColor = document.getElementById('taskColor').value;
+
+        document.getElementById('taskTitle').value = '';
+        document.getElementById('taskDueDate').value = '';
+        document.getElementById('taskTags').value = '';
+        document.getElementById('taskColor').value = '';
+
+        const taskTemplate = "<div class=\"card taskboard-round-border task-item mb-1\">\n" +
+            "                        <div class=\"card-body p-2\">\n" +
+            "                            {{ taskName | safe }}\n" +
+            "                            <div class=\"float-right\">\n" +
+            "                                <span class=\"badge badge-light\">\n" +
+            "                                    <i class=\"material-icons card-icons align-text-bottom\">\n" +
+            "                                        calendar_today\n" +
+            "                                    </i>\n" +
+            "                                    {{ taskDueDate }}\n" +
+            "                                </span>\n" +
+            "                                <span class=\"badge badge-light\">\n" +
+            "                                    <i class=\"material-icons card-icons align-text-bottom\">\n" +
+            "                                        label\n" +
+            "                                    </i>\n" +
+            "                                    {{ taskTags }}\n" +
+            "                                </span>\n" +
+            "                                <div class=\"dropdown d-inline-block\">\n" +
+            "                                    <button class=\"btn btn-light btn-sm dropdown-toggle\" type=\"button\"\n" +
+            "                                            data-toggle=\"dropdown\">\n" +
+            "                                    </button>\n" +
+            "                                    <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n" +
+            "                                        <a class=\"dropdown-item\" href=\"#\" onclick=\"handleMove(this, 0)\">Planned</a>\n" +
+            "                                        <a class=\"dropdown-item\" href=\"#\" onclick=\"handleMove(this, 1)\">Doing</a>\n" +
+            "                                        <a class=\"dropdown-item\" href=\"#\" onclick=\"handleMove(this, 2)\">Testing</a>\n" +
+            "                                        <a class=\"dropdown-item\" href=\"#\" onclick=\"handleMove(this, 3)\">Finished</a>\n" +
+            "                                        <a class=\"dropdown-item\" href=\"#\" onclick=\"deleteTask(this)\">Delect Task</a>\n" +
+            "                                    </div>\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                        </div>\n" +
+            "                    </div>";
+
+        let renderedStr = nunjucks.renderString(taskTemplate, {
+            taskName,
+            taskDueDate,
+            taskTags,
+            taskColor
+        });
+
+        let el = new DOMParser().parseFromString(renderedStr, 'text/html');
+        el.querySelector('body > div > div > p').classList.add('card-text');
+        document.getElementById('planned-list').appendChild(el.querySelector('body > div'));
+        saveTasks();
     }
-  });
+
+    function handleMove(ele, statusCode) {
+        let statusCodeList = {
+            0: 'planned-list',
+            1: 'doing-list',
+            2: 'testing-list',
+            3: 'finished-list'
+        };
+        let cardEle = ele.parentElement.parentElement.parentElement.parentElement.parentElement;
+        document.getElementById(statusCodeList[statusCode]).appendChild(cardEle);
+
+        document.querySelector('[aria-expanded="true"]').click();
+        // Save to Firebase DB
+        saveTasks();
+    }
+
+    function saveTasks() {
+        let plannedList = document.getElementById('planned-list').innerHTML;
+        let doingList = document.getElementById('doing-list').innerHTML;
+        let testingList = document.getElementById('testing-list').innerHTML;
+        let finishedList = document.getElementById('finished-list').innerHTML;
+        db.collection('users').doc(firebase.auth().currentUser.uid).set({
+            plannedList,
+            doingList,
+            testingList,
+            finishedList
+        })
+        .then(() => {
+            console.log('tasks saved');
+        })
+        .catch((err) => {
+            console.error('error saving tasks ' + err);
+        })
+    }
+
+    function loadTasks() {
+        let docRef = db.collection('users').doc(firebase.auth().currentUser.uid);
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+                document.getElementById('planned-list').innerHTML = doc.data().plannedList;
+                document.getElementById('doing-list').innerHTML = doc.data().doingList;
+                document.getElementById('testing-list').innerHTML = doc.data().testingList;
+                document.getElementById('finished-list').innerHTML = doc.data().finishedList;
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+    }
+
+    function deleteTask(ele) {
+        let cardEle = ele.parentElement.parentElement.parentElement.parentElement.parentElement;
+        cardEle.remove();
+        saveTasks();
+    }
 </script>
 
 </body>

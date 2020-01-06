@@ -1,0 +1,30 @@
+<div class="card taskboard-round-border task-item">
+    <div class="card-body p-2">
+        <p class="card-text">Add Jinja Template Support</p>
+        <div class="float-right">
+                                <span class="badge badge-light">
+                                    <i class="material-icons card-icons align-text-bottom">
+                                        calendar_today
+                                    </i>
+                                    Jan 5
+                                </span>
+            <span class="badge badge-light">
+                                    <i class="material-icons card-icons align-text-bottom">
+                                        label
+                                    </i>
+                                    TaskBoard
+                                </span>
+            <div class="dropdown d-inline-block">
+                <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                        data-toggle="dropdown">
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" onclick="handleMove(this, 0)">Planned</a>
+                    <a class="dropdown-item" href="#" onclick="handleMove(this, 1)">Doing</a>
+                    <a class="dropdown-item" href="#" onclick="handleMove(this, 2)">Testing</a>
+                    <a class="dropdown-item" href="#" onclick="handleMove(this, 3)">Finished</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
